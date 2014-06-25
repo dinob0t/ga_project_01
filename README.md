@@ -1,6 +1,6 @@
 #Coffee in New York with Google Places API
 
-## Where to find good coffee in New York?:
+## Where to find good coffee in New York?
 
 This project attempts to locate all the coffee outlets in Manhattan and Brooklyn, obtain their Google Places review scores, and find the areas and stores with the best coffee. A summary of the results can be found on my blog 'www.datadino.ghost.io' with results plotted to a geoJSON file by postcode, for example.
 
@@ -8,7 +8,7 @@ This project attempts to locate all the coffee outlets in Manhattan and Brooklyn
 
 * 5_hists_by_reviewer_number.png - 5 Histograms showing how the scores recorded by 1-5+ reviewers differ from the global distribution of Google Places Scores.
 
-* all_score_hist.png - A histogram of the full distribution of Google Places scores.
+* all_score_hist.png - A histogram of the full distribution of official Google Places scores.
 
 * coffee_data.ipynb - IPython Notebook to generate some plots from the data and to analyse results.
 
@@ -26,11 +26,11 @@ This project attempts to locate all the coffee outlets in Manhattan and Brooklyn
 
 There are two separate components to the searches in this project: 1) Search for a keyword 'coffee' using a Place search on location. 2) Use the unique identifier from each establishment identified in 1) to extract further information via a Place detail search.
 
-* Usage limits - 1000 calls an hour which may be increased to 100000 by 'verifiying your identity' by providing your credit card to Google... The project as stands makes of the order of 25000 requests.
+* Usage limits - 1000 calls an hour which may be increased to 100000 by 'verifying your identity' by providing your credit card to Google... The project as stands makes of the order of 25000 requests.
 
 * Place search call - Will return up to the top 20 places within a user given search radius for a given latitude and longitude. To ensure I obtain _all_ places within the search area, I set the search radius to r = 100m, and we step the lat/long points by 2*r/sqrt(2). I capture the following returned fields : 'rating', 'name', 'reference', 'price_level', 'lat', 'lon', 'opening_hours', 'vicinity', 'photos', 'id', 'types', 'icon'. The main ones of interest are the ID, reference, rating, lat, and lon. The rating allows the list to be sorted for the best coffee and the data analysed via histograms. Using the lat/lon I am able to plot the results by postcode as on my blog.
 
-* Place details call - Using the unique identifier from the Place search, we may now fetch more information about an establishment i.e. reviews, scores, etc. It was my original intention to get all the user reviews and/or the number of reviews via a details call. However, Google only returns _up_ _to_ 5 reviews. This is disappointing but also means that we can analyse if there is a bias in scores when an establishment has only a few reviews i.e. are the owners or friends adding in the first few favourable reviews?
+* Place details call - Using the unique identifier from the Place search, we may now fetch more information about an establishment i.e. reviews, scores, etc. It was my original intention to get all the user reviews and/or the number of reviews via a details call. However, Google only returns _up_ _to_ 5 reviews. This is disappointing but also means that we can analyse if there is a bias in scores when an establishment has only a few reviews i.e. are the owners or friends adding in the first few favorable reviews?
 
 * Other - Another way similar results might be achieved is to use a 'Radar search' from the Places API which will return up to 200 results for a given location and radius. There is a 5-times multiplier on the number of API calls for one of these requests and it returns fewer details.
 
