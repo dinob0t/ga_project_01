@@ -1,4 +1,3 @@
-# Import the relevant libraries
 import urllib2
 import json
 import csv
